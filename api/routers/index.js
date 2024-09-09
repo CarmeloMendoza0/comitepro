@@ -1,8 +1,13 @@
-//const login = require('./login.router');
+const express = require('express');
+
+const usersRouter = require('./users.router');
+const accountingRouter = require('./accounting.router');
 
 function routerApi(app) {
-  // app.use('/login', login);
-  console.log('hola');
+  const router = express.Router();
+  app.use('/api/v1', router);
+  router.use('/users', usersRouter);
+  router.use('/accounting', accountingRouter);
 }
 
 module.exports = routerApi;
