@@ -1,23 +1,32 @@
 //programación oreintada a objetos
 const boom = require('@hapi/boom');
 const { required } = require('joi');
+const bcrypt = require('bcrypt');
 
-const { models } = require('./../../libs/sequelize');
+const { models } = require('./../libs/sequelize');
 
 class UserService {
   constructor() {}
 
   async create(data) {
-    const newUser = await models.User.create(data);
+    const hash = await bcrypt.hash(data.password, 10);
+    const newUser = await models.User.create({
+      ...data,
+      password: hash,
+    });
+    delete newUser.dataValues.password;
     return newUser;
   }
 
   async find() {
-    /* const rta = await models.User.findAll();
-    return rta; */
     const rta = await models.User.findAll({
       include: ['accounting'],
     });
+    return rta;
+  }
+
+  async findByEmail(email) {
+    const rta = await models.User.findOne({ where: { email } });
     return rta;
   }
 

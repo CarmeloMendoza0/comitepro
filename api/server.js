@@ -1,11 +1,13 @@
 const express = require('express');
 const cors = require('cors');
 const routerApi = require('./routers');
+const { checkApiKey } = require('./middlewares/auth.handler');
 
 const {
   logErrors,
   errorHandler,
   boomErrorHandler,
+  ormErrorHandler,
 } = require('./middlewares/error.handler');
 
 const app = express();
@@ -25,16 +27,23 @@ const options = {
 };
 app.use(cors(options));
 
+require('./utils/auth');
+
 app.get('/api', (req, res) => {
-  res.send('server Express');
+  res.send('Hola mi server Express');
+});
+
+app.get('/api/nueva-ruta', checkApiKey, (req, res) => {
+  res.send('Hola, soy una nueva ruta');
 });
 
 routerApi(app);
 
 app.use(logErrors);
+app.use(ormErrorHandler);
 app.use(boomErrorHandler);
 app.use(errorHandler);
 
 app.listen(port, () => {
-  console.log('Mi port es:' + port);
+  console.log(`Mi port ${port}`);
 });

@@ -1,12 +1,11 @@
 const boom = require('@hapi/boom');
-const { models } = require('./../../libs/sequelize');
+const bcrypt = require('bcrypt');
+const { models } = require('./../libs/sequelize');
 
 class AccountingService {
   constructor() {}
 
   async find() {
-    /* const rta = await models.Accounting.findAll;
-    return rta; */
     const rta = await models.Accounting.findAll({
       include: ['user'],
     });
@@ -23,9 +22,18 @@ class AccountingService {
 
   async create(data) {
     //return data;
-    const newAccounting = await models.Accounting.create(data, {
+    const hash = await bcrypt.hash(data.user.password, 10);
+    const newData = {
+      ...data,
+      user: {
+        ...data.user,
+        password: hash,
+      },
+    };
+    const newAccounting = await models.Accounting.create(newData, {
       include: ['user'],
     });
+    delete newAccounting.dataValues.user.dataValues.password;
     return newAccounting;
   }
 
