@@ -1,10 +1,10 @@
 'use strict';
 
-const { EmpresaSchema, EMPRESA_TABLE } = require('../models/empresa.model');
+const { EmpresaSchema, EMPRESA_TABLE } = require('./../models/empresa.model');
 const {
   PeriodoContableSchema,
   PERIODO_CONTABLE_TABLE,
-} = require('../models/periodocontable.model');
+} = require('./../models/periodocontable.model');
 
 module.exports = {
   async up(queryInterface) {
