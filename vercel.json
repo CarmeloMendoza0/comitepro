@@ -1,14 +1,8 @@
 {
   "rewrites": [
     {
-      "source": "/(.*)",
+      "source": "/api/(.*)",
       "destination": "/api"
-    }
-  ],
-  "builds": [
-    {
-      "src": "/api/server.js",
-      "use": "@now/node"
     }
   ]
 }

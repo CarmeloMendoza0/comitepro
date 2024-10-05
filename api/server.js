@@ -17,7 +17,7 @@ app.use(express.json());
 
 const whitelist = [
   'http://localhost:8080',
-  //'https://myapp.co',
+  'https://myapp.co',
   //'https://comitepro.vercel.app',
 ];
 const options = {
