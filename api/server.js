@@ -17,8 +17,8 @@ app.use(express.json());
 
 const whitelist = [
   'http://localhost:8080',
-  'https://myapp.co',
-  'https://comitepro.vercel.app',
+  //'https://myapp.co',
+  //'https://comitepro.vercel.app',
 ];
 const options = {
   origin: (origin, callback) => {
@@ -51,3 +51,5 @@ app.use(errorHandler);
 app.listen(port, () => {
   console.log(`Mi port ${port}`);
 });
+
+module.exports = app;

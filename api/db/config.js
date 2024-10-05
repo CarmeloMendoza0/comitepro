@@ -3,11 +3,11 @@ const { config } = require('./../config/config');
 module.exports = {
   development: {
     url: config.dbUrl,
-    dialect: 'postgres',
+    dialect: config.dbEngine,
   },
   production: {
     url: config.dbUrl,
-    dialect: 'postgres',
+    dialect: config.dbEngine, // postgres
     dialectOptions: {
       ssl: {
         rejectUnauthorized: false,

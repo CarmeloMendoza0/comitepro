@@ -3,7 +3,7 @@ const { config } = require('./../config/config');
 const setupModels = require('./../db/models');
 
 const options = {
-  dialect: 'postgres',
+  dialect: config.dbEngine,
   logging: config.isProd ? false : console.log,
 };
 if (config.isProd) {
